@@ -1,7 +1,7 @@
 <!DOCTYPE
  html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/transitional.dtd">
-<!-- $Id: index.html,v 1.1 1999/11/15 17:41:58 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.2 1999/11/15 18:10:03 mradwin Exp mradwin $ -->
 <html xmlns="http://www.w3.org/TR/xhtml1">
 <head>
 <title>UTF-8 and Unicode Standards</title>
@@ -13,17 +13,14 @@
 
 <h1>UTF-8 and Unicode Standards</h1>
 
-<h2>RFCs</h2>
+<h2>Standards</h2>
 <dl>
 <dt><a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc2279.html">RFC
     2279</a>: UTF-8, a transformation format of ISO 10646</dt>
 <dt><a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc2152.html">RFC
     2152</a>: UTF-7: a Mail-Safe Transformation Format of Unicode</dt>
-</dl>
-
-<h2>Unicode</h2>
-<dl>
-<dt><a href="http://www.unicode.org/">The Unicode Consortium</a></dt>
+<dt><a href="http://www.unicode.org/unicode/standard/standard.html">The
+    Unicode Standard</a></dt>
 </dl>
 
 <h2>Related Markup References</h2>
@@ -32,10 +29,29 @@
 <dt><a href="http://www.unicode.org/unicode/reports/tr20/">Unicode in XML and other Markup Languages</a></dt>
 </dl>
 
+<h2>Character Sets</h2>
+<p>The character set for UTF-8 is <code>UTF-8</code>.  So, for example,
+your HTTP header might look like:</p>
+
+<pre>
+Content-Type: text/html;charset=UTF-8
+</pre>
+
+<p>Or, in HTML parlance:</p>
+
+<pre>
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+</pre>
+
+<p>See the IANA's <a
+href="http://www.isi.edu/in-notes/iana/assignments/character-sets">Character
+Sets</a> document for the official names for character sets that may be
+used in the Internet and may be referred to in Internet documentation.</p>
+
 <hr noshade="noshade" size="1" />
 <small>
 <!-- hhmts start -->
-Last modified: Mon Nov 15 10:07:18 PST 1999
+Last modified: Mon Nov 15 14:00:35 PST 1999
 <!-- hhmts end -->
 </small>
 </body>
