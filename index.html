@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "DTD/xhtml1-strict.dtd">
-<!-- $Id: index.html,v 1.10 2000/01/13 17:36:26 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.11 2000/01/27 00:03:59 mradwin Exp mradwin $ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>UTF-8 and Unicode Standards</title>
@@ -45,21 +45,31 @@ href="http://www.unicode.org/unicode/faq/index-2.html#Encoding Forms">Unicode
     Technical Report #19</a>: UTF-32: Interoperable 32-bit Serialization</dt>
 <dt><a href="http://www.w3.org/TR/REC-xml">Extensible Markup Language (XML) 1.0</a></dt>
 <dt><a href="http://www.unicode.org/unicode/reports/tr20/">Unicode in XML and other Markup Languages</a></dt>
+<dt><a href="http://czyborra.com/utf/">Unicode Transformation
+    Formats</a> [czyborra.com]</dt>
 </dl>
 
 <h2>Character Sets</h2>
 <p>The MIME character set attribute for UTF-8 is <code>UTF-8</code>
 (defined by <a href="#ref-IANA">[IANA]</a>).  So, for example,
-your HTTP header might look like:</p>
+your HTTP header would look like:</p>
 
 <pre>
 Content-Type: text/html; charset=UTF-8
 </pre>
 
-<p>In HTML parlance:</p>
+<p>In HTML parlance, place this tag inside <code>&lt;head&gt;</code> ...
+<code>&lt;/head&gt;</code>:</p>
 
 <pre>
 &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+</pre>
+
+<p>In Apache server config or .htaccess, this will cause the HTTP header
+to be generated:</p>
+
+<pre>
+AddType text/html;charset=UTF-8 html htm
 </pre>
 
 <h2>References</h2>
@@ -74,7 +84,7 @@ href="http://www.isi.edu/in-notes/iana/assignments/character-sets">http://www.is
 <div>
 <small>
 <!-- hhmts start -->
-Last modified: Wed Jan 26 16:03:02 PST 2000
+Last modified: Thu Feb 17 16:11:51 PST 2000
 <!-- hhmts end -->
 </small>
 </div>
