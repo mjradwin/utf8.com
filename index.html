@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "DTD/xhtml1-transitional.dtd">
-<!-- $Id: index.html,v 1.15 2000/09/20 19:15:09 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.16 2000/09/20 19:23:17 mradwin Exp mradwin $ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>UTF-8 and Unicode Standards</title>
@@ -52,19 +52,14 @@ href="http://www.unicode.org/unicode/faq/index-2.html#Encoding Forms">Unicode
 </dl>
 
 <h2>Character Sets</h2>
+
 <p>The MIME character set attribute for UTF-8 is <code>UTF-8</code>
-(defined by <a href="#ref-IANA">[IANA]</a>).  So, for example,
-your HTTP header would look like:</p>
-
-<pre>
-Content-Type: text/html; charset=UTF-8
-</pre>
-
-<p>In HTML parlance, place this tag inside <code>&lt;head&gt;</code> ...
+(defined by <a href="#ref-IANA">[IANA]</a>). In an HTML file, place this
+tag inside <code>&lt;head&gt;</code> ...
 <code>&lt;/head&gt;</code>:</p>
 
 <pre>
-&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;
 </pre>
 
 <p>In Apache server config or .htaccess, this will cause the HTTP header
@@ -87,7 +82,7 @@ href="http://www.isi.edu/in-notes/iana/assignments/character-sets">http://www.is
 <span lang="he" dir="rtl">מיכאל רדווין</span><br />
 <small>
 <!-- hhmts start -->
-Last modified: Wed Sep 20 12:22:10 PDT 2000
+Last modified: Wed Sep 20 15:44:55 PDT 2000
 <!-- hhmts end -->
 </small>
 </div>
