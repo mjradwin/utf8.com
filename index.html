@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "DTD/xhtml1-transitional.dtd">
-<!-- $Id: index.html,v 1.20 2004/02/02 20:52:46 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.21 2004/02/02 21:00:05 mradwin Exp mradwin $ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>UTF-8 and Unicode Standards</title>
@@ -8,6 +8,15 @@
 <meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l gen true on "1998.03.10T11:49-0800" r (n 0 s 0 v 0 l 0))' />
 <base target="_top" />
 <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
+<style type="text/css">
+<!--
+pre {
+ width: 95%;
+ border: solid green;
+ padding: 6px;
+}
+-->
+</style>
 </head>
 <body>
 
@@ -23,8 +32,10 @@ lossless encoding of Unicode characters.</p>
 <p>UTF-8 encodes each Unicode character as a variable number of 1 to 6
 octets, where the number of octets depends on the integer value assigned
 to the Unicode character.  It is an efficient encoding of Unicode
-documents that use US-ASCII characters because it represents each
-character in the range U+0000 through U+007F as a single octet.</p>
+documents that use mostly US-ASCII characters because it represents each
+character in the range U+0000 through U+007F as a single octet.  UTF-8
+is the default encoding for <a
+href="http://www.w3.org/TR/REC-xml">XML</a>.</p>
 
 <a title="The Unicode Standard, Version 4.0"
 href="http://www.amazon.com/exec/obidos/ASIN/0321185781/hebcal-20"><img
@@ -34,36 +45,44 @@ vspace="6" align="right" /></a>
 
 <h2>Standards</h2>
 <dl>
-<dt><a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc2279.html">RFC
-    2279</a>: UTF-8, a transformation format of ISO 10646</dt>
-<dt><a
-href="http://www.unicode.org/unicode/faq/utf_bom.html">Unicode
-    FAQ: UTF</a></dt>
-<dt><a href="http://www.unicode.org/unicode/standard/standard.html">The
-    Unicode Standard</a> (<a title="The Unicode Standard, Version 4.0"
+<dt><a href="http://www.faqs.org/rfcs/rfc3629.html">RFC
+    3629</a>: UTF-8, a transformation format of ISO 10646</dt>
+<dt><a href="http://www.unicode.org/standard/standard.html">The
+    Unicode Standard 4.0</a> (<a title="The Unicode Standard, Version 4.0"
 href="http://www.amazon.com/exec/obidos/ASIN/0321185781/ref=nosim/hebcal-20">order
 from Amazon.com</a>)</dt>
+<dd>In particular, see the <a title="2.5 Encoding Forms: UTF-8"
+    href="http://www.unicode.org/versions/Unicode4.0.0/ch02.pdf#G11165">informal
+    description</a> of UTF-8 in sections 2.5 and 2.6, pages 30-32, and a
+    much more <a title="3.9 Unicode Encoding Forms: UTF-8"
+    href="http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf#G31703">formal
+    definition</a> in sections 3.9 and 3.10, pages 77-81.</dd>
 </dl>
 
-<h2>Related Standards and References</h2>
+<h2>Articles and background reading</h2>
 <dl>
+<dt><a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">UTF-8 and
+    Unicode FAQ for Unix/Linux</a> by Markus Kuhn</dt>
 <dt><a
-    href="http://www.ibm.com/software/developer/library/utfencodingforms/">Forms of Unicode</a>, an excellent overview by Mark Davis</dt>
-<dt><a href="http://www.cis.ohio-state.edu/htbin/rfc/rfc2152.html">RFC
-    2152</a>: UTF-7: a Mail-Safe Transformation Format of Unicode</dt>
-<dt><a href="http://www.unicode.org/unicode/reports/tr19/">Unicode
-    Technical Report #19</a>: UTF-32: Interoperable 32-bit Serialization</dt>
-<dt><a href="http://www.w3.org/TR/REC-xml">Extensible Markup Language (XML) 1.0</a></dt>
-<dt><a href="http://www.unicode.org/unicode/reports/tr20/">Unicode in XML and other Markup Languages</a></dt>
-<dt><a href="http://web.archive.org/web/20030621133334/http://www.czyborra.com/utf/">Unicode Transformation
-    Formats</a> [czyborra.com]</dt>
+    href="http://www.ibm.com/software/developer/library/utfencodingforms/">Forms
+    of Unicode</a>, an excellent overview by Mark Davis</dt>
+<dt><a
+href="http://web.archive.org/web/20030621133334/http://www.czyborra.com/utf/">Unicode
+Transformation Formats</a> [czyborra.com]</dt>
+<dt><a
+    href="http://www.unicode.org/unicode/faq/utf_bom.html#UTF8">Unicode
+    UTF-8 FAQ</a></dt>
+<dt><a href="http://www.unicode.org/unicode/reports/tr20/">Unicode in
+    XML and other Markup Languages</a>: Unicode Technical Report #20</dt>
 </dl>
 
 <h2>Character Sets</h2>
 
-<p>The MIME character set attribute for UTF-8 is <code>UTF-8</code>
-(defined by <a href="#ref-IANA">[IANA]</a>). In an HTML file, place this
-tag inside <code>&lt;head&gt;</code> ...
+<p>The MIME character set attribute for UTF-8 is <code>UTF-8</code> [<a
+href="http://www.iana.org/assignments/character-sets">IANA Character
+Sets</a>].</p>
+
+<p>In an HTML file, place this tag inside <code>&lt;head&gt;</code> ...
 <code>&lt;/head&gt;</code>:</p>
 
 <pre>
@@ -77,19 +96,12 @@ to be generated:</p>
 AddType text/html;charset=UTF-8 html htm
 </pre>
 
-<h2>References</h2>
-<dl>
-<dt><a name="ref-IANA" id="ref-IANA">[IANA]</a></dt>
-<dd>Character Sets, Internet Assigned Numbers Authority.  Available at <a
-href="http://www.iana.org/assignments/character-sets">http://www.iana.org/assignments/character-sets</a>.</dd>
-</dl>
-
 <hr />
 
 <div>
 <small>
 <!-- hhmts start -->
-Last modified: Mon Feb  2 12:58:48 PST 2004
+Last modified: Mon Mar 15 22:10:26 PST 2004
 <!-- hhmts end -->
 </small>
 </div>
