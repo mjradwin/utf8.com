@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "DTD/xhtml1-transitional.dtd">
-<!-- $Id: index.html,v 1.24 2004/03/24 20:46:13 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.25 2005/02/10 22:11:31 mradwin Exp mradwin $ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>UTF-8 and Unicode Standards</title>
@@ -64,13 +64,13 @@ from Amazon.com</a>]</dt>
 <dt><a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">UTF-8 and
     Unicode FAQ for Unix/Linux</a> by Markus Kuhn</dt>
 <dt><a
-    href="http://www.ibm.com/software/developer/library/utfencodingforms/">Forms
+    href="http://icu.sourceforge.net/docs/papers/forms_of_unicode/">Forms
     of Unicode</a>, an excellent overview by Mark Davis</dt>
 <dt><a href="http://en.wikipedia.org/wiki/UTF-8">Wikipedia UTF-8</a>
     contains a good discussion of why five- and six-octet sequences are
     now illegal UTF-8</dt>
 <dt><a
-href="http://web.archive.org/web/20030621133334/http://www.czyborra.com/utf/">Unicode
+href="http://www.czyborra.com/utf/">Unicode
 Transformation Formats</a> [czyborra.com]</dt>
 <dt><a
     href="http://www.unicode.org/unicode/faq/utf_bom.html#UTF8">Unicode
@@ -81,7 +81,9 @@ Transformation Formats</a> [czyborra.com]</dt>
 
 <h2>Character Sets</h2>
 
-<p>The MIME character set attribute for UTF-8 is <code>UTF-8</code> [<a
+<p>The MIME character set attribute for UTF-8 is <code>UTF-8</code>.
+Character sets are case-insensitive, so <code>utf-8</code> is equally
+valid. [<a
 href="http://www.iana.org/assignments/character-sets">IANA Character
 Sets</a>].</p>
 
@@ -92,11 +94,19 @@ Sets</a>].</p>
 &lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;
 </pre>
 
-<p>In Apache server config or .htaccess, this will cause the HTTP header
-to be generated:</p>
+<p>In an XML prolog, the encoding is typically specified as an
+attribute:</p>
 
 <pre>
-<a href="http://httpd.apache.org/docs/mod/core.html#adddefaultcharset">AddDefaultCharset</a> UTF-8
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+</pre>
+
+<p>In Apache server config or .htaccess, this will cause the HTTP header
+to be generated for <code>text/html</code> and <code>text/plain</code>
+content:</p>
+
+<pre>
+<a href="http://httpd.apache.org/docs/1.3/mod/core.html#adddefaultcharset">AddDefaultCharset</a> UTF-8
 </pre>
 
 <hr />
@@ -104,7 +114,7 @@ to be generated:</p>
 <div>
 <small>
 <!-- hhmts start -->
-Last modified: Thu Feb 10 14:11:18 PST 2005
+Last modified: Tue Sep 13 15:00:21 PDT 2005
 <!-- hhmts end -->
 </small>
 </div>
