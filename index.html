@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- $Id: index.php,v 1.42 2008/11/21 18:53:27 mradwin Exp mradwin $ -->
+<!-- $Id: index.php,v 1.43 2010/09/15 04:38:01 mradwin Exp mradwin $ -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>UTF-8 and Unicode Standards</title>
@@ -14,132 +14,203 @@ pre {
  border: solid green;
  padding: 6px;
 }
+#tla ul { width: 100%; margin: 0; list-style: none; padding: 0 }
+#tla ul li { display: block; float: left; clear: none; margin: 0;
+ padding: 0; width: 25% }
 </style>
 </head>
 <body>
 
 <h1>UTF-8 and Unicode Standards</h1>
 
+<div id="tla">
 <?php
 
-function tla_ads() {
+function tla_ads()
+{
+    // Number of seconds before connection to XML times out
+    // (This can be left the way it is)
+    $CONNECTION_TIMEOUT = 15;
 
-	// Number of seconds before connection to XML times out
-	// (This can be left the way it is)
-	$CONNECTION_TIMEOUT = 10;
+    // Local file to store XML
+    // This file MUST be writable by web server
+    // You should create a blank file and CHMOD it to 666
+    $LOCAL_FILENAME = 'local_256712.xml';
 
-	// Local file to store XML
-	// This file MUST be writable by web server
-	// You should create a blank file and CHMOD it to 666
-	$LOCAL_XML_FILENAME = "local_256712.xml";
+    if (!file_exists($LOCAL_FILENAME)) {
+        @touch($LOCAL_FILENAME);
+        @chmod($LOCAL_FILENAME, 0666);
+    }
 
-	if( !file_exists($LOCAL_XML_FILENAME) ) die("Script error: $LOCAL_XML_FILENAME does not exist. Please create a blank file named $LOCAL_XML_FILENAME.");
-	if( !is_writable($LOCAL_XML_FILENAME) ) die("Script error: $LOCAL_XML_FILENAME is not writable. Please set write permissions on $LOCAL_XML_FILENAME.");
+    if (!file_exists($LOCAL_FILENAME)) {
+        die("Script error: $LOCAL_FILENAME does not exist. Please create a blank file named $LOCAL_FILENAME.");
+    }
 
-	if( filemtime($LOCAL_XML_FILENAME) < (time() - 3600) || filesize($LOCAL_XML_FILENAME) < 20) {
-		$request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";
-		$user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
-		tla_updateLocalXML("http://www.text-link-ads.com/xml.php?inventory_key=623XIT1ATKC1FZ2UX7OG&referer=" . urlencode($request_uri) .  "&user_agent=" . urlencode($user_agent), $LOCAL_XML_FILENAME, $CONNECTION_TIMEOUT);
-	}
+    if (!is_writable($LOCAL_FILENAME)) {
+        die("Script error: $LOCAL_FILENAME is not writable. Please set write permissions on $LOCAL_FILENAME.");
+    }
 
-	$xml = tla_getLocalXML($LOCAL_XML_FILENAME);
+    if (filemtime($LOCAL_FILENAME) < (time() - 3600) || filesize($LOCAL_FILENAME) < 3) {
+        $url = 'http://www.text-link-ads.com/xml.php?k=623XIT1ATKC1FZ2UX7OG&l=php-tla-2.0.1';
+        
+        if (function_exists('json_decode') && is_array(json_decode('{"a":1}', true))) {
+            $url .= '&f=json';
+        }
 
-	$arr_xml = tla_decodeXML($xml);
+        tla_updateLocal($url, $LOCAL_FILENAME, $CONNECTION_TIMEOUT);
+    }
 
-	if ( is_array($arr_xml) ) {
-		echo "\n<ul style=\"width: 100%; margin: 0; list-style: none; padding: 0;\">\n";
-		for ($i = 0; $i < count($arr_xml['URL']); $i++) {
-			if( isset($arr_xml['PostID'][$i]) && $arr_xml['PostID'][$i] > 0 ) continue;
-			echo "<li style=\"display: block; float: left; clear: none; margin: 0; padding: 0; width: 25%;\">".$arr_xml['BeforeText'][$i]." <a href=\"".$arr_xml['URL'][$i]."\">".$arr_xml['Text'][$i]."</a> ".$arr_xml['AfterText'][$i]."</li>\n";
-		}
-		echo "</ul>";
-	}
+    $xml = tla_getLocal($LOCAL_FILENAME);
+    $links = tla_decode($xml);
 
+    if ($links && is_array($links)) {
+        echo "\n<ul>\n";
+        foreach ($links as $link) {
+            if (isset($link['PostID']) && $link['PostID'] > 0) {
+                continue;
+            }
+
+            echo "<li>" . ($link['BeforeText'] ? $link['BeforeText'] . ' ' : '') . '<a href="' . $link['URL'] . '">' . $link['Text'] . '</a>' . ($link['AfterText'] ? ' ' . $link['AfterText'] : '') . "</li>\n";
+        }
+        echo '</ul>';
+    }
 }
 
-function tla_updateLocalXML($url, $file, $time_out)
+function tla_updateLocal($url, $file, $time_out)
 {
-	if($handle = fopen($file, "a")){
-			fwrite($handle, "\n");
-			fclose($handle);
-	}
-	if($xml = file_get_contents_tla($url, $time_out)) {
-		$xml = substr($xml, strpos($xml,'<?'));
+    @touch($file);
 
-		if ($handle = fopen($file, "w")) {
-			fwrite($handle, $xml);
-			fclose($handle);
-		}
-	}
+    if ($xml = file_get_contents_tla($url, $time_out)) {
+        if ($handle = fopen($file, 'w')) {
+            fwrite($handle, $xml);
+            fclose($handle);
+        }
+    }
 }
 
-function tla_getLocalXML($file)
+function tla_getLocal($file)
 {
-	$contents = "";
-	if($handle = fopen($file, "r")){
-		$contents = fread($handle, filesize($file)+1);
-		fclose($handle);
-	}
-	return $contents;
+    if (function_exists('file_get_contents')) {
+        return file_get_contents($file);
+    }
+
+    $contents = '';
+    if ($handle = fopen($file, 'r')) {
+        $contents = fread($handle, filesize($file) + 1);
+        fclose($handle);
+    }
+
+    return $contents;
 }
 
 function file_get_contents_tla($url, $time_out)
 {
-	$result = "";
-	$url = parse_url($url);
+    $result = '';
+    $urlInfo = parse_url($url);
 
-	if ($handle = @fsockopen ($url["host"], 80)) {
-		if(function_exists("socket_set_timeout")) {
-			socket_set_timeout($handle,$time_out,0);
-		} else if(function_exists("stream_set_timeout")) {
-			stream_set_timeout($handle,$time_out,0);
-		}
+    if ($handle = @fsockopen($urlInfo['host'], 80)) {
+        if (function_exists('socket_set_timeout')) {
+            socket_set_timeout($handle, $time_out, 0);
+        } else if (function_exists('stream_set_timeout')) {
+            stream_set_timeout($handle, $time_out, 0);
+        }
 
-		fwrite ($handle, "GET $url[path]?$url[query] HTTP/1.0\r\nHost: $url[host]\r\nConnection: Close\r\n\r\n");
-		while (!feof($handle)) {
-			$result .= @fread($handle, 40960);
-		}
-		fclose($handle);
-	}
+        fwrite($handle, 'GET ' . $urlInfo['path'] . '?' . $urlInfo['query'] . " HTTP/1.0\r\nHost: " . $urlInfo['host'] . "\r\nConnection: Close\r\n\r\n");
+        while (!feof($handle)) {
+            $result .= @fread($handle, 40960);
+        }
+        fclose($handle);
+    } else if (function_exists('curl_init')) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $time_out);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $time_out);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+    }
 
-	return $result;
+    $return = '';
+    $capture = false;
+    foreach (explode("\n", $result) as $line) {
+        $char = substr(trim($line), 0, 1);
+        if ($char == '[' || $char == '<') {
+            $capture = true;
+        }
+
+        if ($capture) {
+            $return .= $line . "\n";
+        }
+    }
+
+    return $return;
 }
 
-function tla_decodeXML($xmlstg)
+function tla_decode($str)
 {
+    if (!function_exists('html_entity_decode')) {
+        function html_entity_decode($string)
+        {
+           // replace numeric entities
+           $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\1"))', $string);
+           $string = preg_replace('~&#([0-9]+);~e', 'chr(\1)', $string);
+           // replace literal entities
+           $trans_tbl = get_html_translation_table(HTML_ENTITIES);
+           $trans_tbl = array_flip($trans_tbl);
+           return strtr($string, $trans_tbl);
+        }
+    }
 
-	if( !function_exists('html_entity_decode') ){
-		function html_entity_decode($string)
-		{
-		   // replace numeric entities
-		   $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\1"))', $string);
-		   $string = preg_replace('~&#([0-9]+);~e', 'chr(\1)', $string);
-		   // replace literal entities
-		   $trans_tbl = get_html_translation_table(HTML_ENTITIES);
-		   $trans_tbl = array_flip($trans_tbl);
-		   return strtr($string, $trans_tbl);
-		}
-	}
+    if (substr($str, 0, 1) == '[') {
+        $arr = json_decode($str, true);
+        foreach ($arr as $i => $a) {
+            foreach ($a as $k => $v) {
+                $arr[$i][$k] = tla_decode_str($v);
+            }
+        }
 
-	$out = "";
-	$retarr = "";
+        return $arr;
+    }
 
-	preg_match_all ("/<(.*?)>(.*?)</", $xmlstg, $out, PREG_SET_ORDER);
-	$search_ar = array('&#60;', '&#62;', '&#34;');
-	$replace_ar = array('<', '>', '"');
-	$n = 0;
-	while (isset($out[$n]))
-	{
-		$retarr[$out[$n][1]][] = str_replace($search_ar, $replace_ar,html_entity_decode(strip_tags($out[$n][0])));
-		$n++;
-	}
-	return $retarr;
+    $out = '';
+    $retarr = '';
+
+    preg_match_all("/<(.*?)>(.*?)</", $str, $out, PREG_SET_ORDER);
+    $n = 0;
+    while (isset($out[$n])) {
+        $retarr[$out[$n][1]][] = tla_decode_str($out[$n][0]);
+        $n++;
+    }
+
+    if (!$retarr) {
+        return false;
+    }
+
+    $arr = array();
+    $count = count($retarr['URL']);
+    for ($i = 0; $i < $count; $i++) {
+        $arr[] = array(
+            'BeforeText' => $retarr['BeforeText'][$i],
+            'URL' => $retarr['URL'][$i],
+            'Text' => $retarr['Text'][$i],
+            'AfterText' => $retarr['AfterText'][$i],
+        );
+    }
+
+    return $arr;
 }
 
+function tla_decode_str($str)
+{
+    $search_ar = array('&#60;', '&#62;', '&#34;');
+    $replace_ar = array('<', '>', '"');
+    return str_replace($search_ar, $replace_ar, html_entity_decode(strip_tags($str)));
+}
 tla_ads();
-
 ?>
 
+</div><!-- #tla -->
 <br clear="all" />
 
 <a class="amzn" id="unicode5-1"
@@ -249,9 +320,7 @@ content:</p>
 
 <div>
 <small>
-<!-- hhmts start -->
-Last modified: Sun Sep 14 14:27:06 PDT 2008
-<!-- hhmts end -->
+<!-- hhmts start -->Last modified: Mon Nov 21 13:45:03 PST 2011 <!-- hhmts end -->
 </small>
 </div>
 
