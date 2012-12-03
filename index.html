@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta charset="UTF-8">
-<!-- $Id: index.html,v 1.47 2012/12/03 20:05:54 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.48 2012/12/03 20:07:25 mradwin Exp mradwin $ -->
 <title>UTF-8 and Unicode Standards</title>
 <base target="_top">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +24,14 @@ pre {
 <div class="hero-unit">
 <h1>UTF-8 and Unicode</h1>
 
-<p>UTF-8 stands for <strong>U</strong>nicode
-<strong>T</strong>ransformation
-<strong>F</strong>ormat-<strong>8</strong>.  It is an octet (8-bit)
-lossless encoding of Unicode characters.</p>
+<p><strong>U</strong>nicode <strong>T</strong>ransformation
+<strong>F</strong>ormat <strong>8</strong>-bit is a variable-width
+encoding that can represent every character in the Unicode character
+set. It was designed for backward compatibility with ASCII and to avoid
+the complications of endianness and byte order marks in UTF-16 and
+UTF-32.
+<sup><a href="http://en.wikipedia.org/wiki/UTF-8">[1]</a></sup>
+</p>
 
 </div> <!-- .hero-unit -->
 
@@ -47,21 +51,22 @@ is the default encoding for <a
 href="http://www.w3.org/TR/REC-xml">XML</a>.</p>
 
 <h2>Standards</h2>
-<dl>
-<dt><a href="http://www.ietf.org/rfc/rfc3629.txt">RFC
-    3629</a>: UTF-8, a transformation format of ISO 10646.  November 2003.</dt>
-<dt><a href="http://www.unicode.org/standard/standard.html">The
+<ul>
+<li><a href="http://www.ietf.org/rfc/rfc3629.txt">RFC
+    3629</a>: UTF-8, a transformation format of ISO 10646.  November 2003.
+<li><a href="http://www.unicode.org/standard/standard.html">The
     Unicode Standard 5.0</a>, November 2006. [<a class="amzn"
 id="unicode5-2" title="The Unicode Standard, Version 5.0"
 href="http://www.amazon.com/o/ASIN/0321480910/ref=nosim/utf8com-20">purchase
-from Amazon.com</a>]</dt>
-<dd>In particular, see the <a title="2.5 Encoding Forms: UTF-8"
+from Amazon.com</a>]
+<ul><li>In particular, see the <a title="2.5 Encoding Forms: UTF-8"
     href="http://www.unicode.org/versions/Unicode4.0.0/ch02.pdf#G11165">informal
     description</a> of UTF-8 in sections 2.5 and 2.6, pages 30-32, and a
     much more <a title="3.9 Unicode Encoding Forms: UTF-8"
     href="http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf#G31703">formal
-    definition</a> in sections 3.9 and 3.10, pages 77-81.</dd>
-</dl>
+    definition</a> in sections 3.9 and 3.10, pages 77-81.
+  </ul>
+</ul>
 
 <h2>Articles and background reading</h2>
 
@@ -73,29 +78,29 @@ src="/0201700522.01.MZZZZZZZ.jpg" width="128" height="160"
 alt="Unicode Demystified: A Practical Programmer's Guide to the Encoding Standard"
 border="0" hspace="4" vspace="4" align="right"></a>
 
-<dl>
-<dt><a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">UTF-8 and
-    Unicode FAQ for Unix/Linux</a> by Markus Kuhn</dt>
-<dt><a
+<ul>
+<li><a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">UTF-8 and
+    Unicode FAQ for Unix/Linux</a> by Markus Kuhn
+<li><a
     href="http://www.icu-project.org/docs/papers/forms_of_unicode/">Forms
-    of Unicode</a>, an excellent overview by Mark Davis</dt>
-<dt><a href="http://en.wikipedia.org/wiki/UTF-8">Wikipedia UTF-8</a>
+    of Unicode</a>, an excellent overview by Mark Davis
+<li><a href="http://en.wikipedia.org/wiki/UTF-8">Wikipedia UTF-8</a>
     contains a good discussion of why five- and six-octet sequences are
-    now illegal UTF-8</dt>
-<dt><a
+    now illegal UTF-8
+<li><a
 href="http://www.czyborra.com/utf/">Unicode
-Transformation Formats</a> [czyborra.com]</dt>
-<dt><a
+Transformation Formats</a> [czyborra.com]
+<li><a
     href="http://www.unicode.org/unicode/faq/utf_bom.html#UTF8">Unicode
-    UTF-8 FAQ</a></dt>
-<dt><a href="http://www.unicode.org/unicode/reports/tr20/">Unicode in
-    XML and other Markup Languages</a>: Unicode Technical Report #20</dt>
-<dt><a
+    UTF-8 FAQ</a>
+<li><a href="http://www.unicode.org/unicode/reports/tr20/">Unicode in
+    XML and other Markup Languages</a>: Unicode Technical Report #20
+<li><a
     href="http://www.joelonsoftware.com/articles/Unicode.html">The
     Absolute Minimum Every Software Developer Absolutely, Positively
     Must Know About Unicode and Character Sets (No Excuses!)</a>, an
-    amusing and informative article by Joel Spolsky</dt>
-</dl>
+    amusing and informative article by Joel Spolsky
+</ul>
 
 <h2>Character Sets</h2>
 
@@ -136,7 +141,7 @@ content:</p>
 <hr>
 
 <footer>
-<!-- hhmts start -->Last modified: Mon Dec  3 11:52:15 PST 2012 <!-- hhmts end -->
+<!-- hhmts start -->Last modified: Mon Dec  3 14:11:06 PST 2012 <!-- hhmts end -->
 </footer>
 
 </div> <!-- /container -->
