@@ -1,13 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- $Id: index.php,v 1.43 2010/09/15 04:38:01 mradwin Exp mradwin $ -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<!-- $Id: index.php,v 1.44 2011/11/21 21:45:24 mradwin Exp mradwin $ -->
 <title>UTF-8 and Unicode Standards</title>
-<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.classify.org/safesurf/" l r (SS~~000 1))' />
-<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0))' />
-<base target="_top" />
-<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
+<base target="_top">
 <style type="text/css">
 pre {
  width: 95%;
@@ -36,7 +32,14 @@ function tla_ads()
     // This file MUST be writable by web server
     // You should create a blank file and CHMOD it to 666
     $LOCAL_FILENAME = 'local_256712.xml';
-
+    
+    // example methods are BIG-5 ISO for fill list see http://www.php.net/manual/en/function.mb-list-encodings.php
+    // example with windows encoding $OUTPUTE_DECODING = 'windows-1251';
+    $OUTPUT_DECODING = false;  
+    
+    // make sure output decoding is an option with iconv existing
+    $OUTPUT_DECODING = $OUTPUT_DECODING && function_exists('iconv') ? $OUTPUT_DECODING : false;
+    
     if (!file_exists($LOCAL_FILENAME)) {
         @touch($LOCAL_FILENAME);
         @chmod($LOCAL_FILENAME, 0666);
@@ -51,7 +54,7 @@ function tla_ads()
     }
 
     if (filemtime($LOCAL_FILENAME) < (time() - 3600) || filesize($LOCAL_FILENAME) < 3) {
-        $url = 'http://www.text-link-ads.com/xml.php?k=623XIT1ATKC1FZ2UX7OG&l=php-tla-2.0.1';
+        $url = 'http://www.text-link-ads.com/xml.php?k=623XIT1ATKC1FZ2UX7OG&l=php-tla-2.0.5';
         
         if (function_exists('json_decode') && is_array(json_decode('{"a":1}', true))) {
             $url .= '&f=json';
@@ -69,8 +72,16 @@ function tla_ads()
             if (isset($link['PostID']) && $link['PostID'] > 0) {
                 continue;
             }
-
-            echo "<li>" . ($link['BeforeText'] ? $link['BeforeText'] . ' ' : '') . '<a href="' . $link['URL'] . '">' . $link['Text'] . '</a>' . ($link['AfterText'] ? ' ' . $link['AfterText'] : '') . "</li>\n";
+            if ($OUTPUT_DECODING) {
+                $beforeText = ($link['BeforeText'] ? iconv('UTF-8', $OUTPUT_DECODING, $link['BeforeText']) . ' ' : '');
+                $afterText = ($link['AfterText'] ? ' ' . iconv('UTF-8', $OUTPUT_DECODING, $link['AfterText']) : '');
+                $text = iconv('UTF-8', $OUTPUT_DECODING, $link['Text']);
+            } else {
+                $beforeText = ($link['BeforeText'] ? $link['BeforeText'] . ' ' : '');
+                $afterText = ($link['AfterText'] ? ' ' . $link['AfterText'] : '');
+                $text = $link['Text'];
+            }
+            echo "<li>" . $beforeText . '<a href="' . $link['URL'] . '">' . $text . '</a>' . $afterText . "</li>\n";
         }
         echo '</ul>';
     }
@@ -211,14 +222,14 @@ tla_ads();
 ?>
 
 </div><!-- #tla -->
-<br clear="all" />
+<br clear="all">
 
 <a class="amzn" id="unicode5-1"
 title="The Unicode Standard, Version 5.0"
 href="http://www.amazon.com/o/ASIN/0321480910/utf8com-20"><img
 alt="The Unicode Standard, Version 5.0" border="0"
 src="/0321480910.01.MZZZZZZZ.jpg" width="126" height="160" hspace="6"
-vspace="6" align="right" /></a>
+vspace="6" align="right"></a>
 
 <h2>What is UTF-8?</h2>
 
@@ -258,7 +269,7 @@ title="Unicode Demystified: A Practical Programmer's Guide to the Encoding Stand
 href="http://www.amazon.com/o/ASIN/0201700522/utf8com-20"><img
 src="/0201700522.01.MZZZZZZZ.jpg" width="128" height="160"
 alt="Unicode Demystified: A Practical Programmer's Guide to the Encoding Standard"
-border="0" hspace="4" vspace="4" align="right" /></a>
+border="0" hspace="4" vspace="4" align="right"></a>
 
 <h2>Articles and background reading</h2>
 
@@ -316,7 +327,7 @@ content:</p>
 <a href="http://httpd.apache.org/docs/1.3/mod/core.html#adddefaultcharset">AddDefaultCharset</a> UTF-8
 </pre>
 
-<hr />
+<hr>
 
 <div>
 <small>
