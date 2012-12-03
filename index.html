@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html><head>
 <meta charset="UTF-8">
-<!-- $Id: index.php,v 1.45 2012/12/03 19:49:30 mradwin Exp mradwin $ -->
+<!-- $Id: index.html,v 1.46 2012/12/03 19:52:57 mradwin Exp mradwin $ -->
 <title>UTF-8 and Unicode Standards</title>
 <base target="_top">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <style type="text/css">
 pre {
  width: 95%;
@@ -14,10 +16,20 @@ pre {
 #tla ul li { display: block; float: left; clear: none; margin: 0;
  padding: 0; width: 25% }
 </style>
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 </head>
 <body>
 
+<div class="container">
+<div class="hero-unit">
 <h1>UTF-8 and Unicode Standards</h1>
+
+<p>UTF-8 stands for <strong>U</strong>nicode
+<strong>T</strong>ransformation
+<strong>F</strong>ormat-<strong>8</strong>.  It is an octet (8-bit)
+lossless encoding of Unicode characters.</p>
+
+</div> <!-- .hero-unit -->
 
 <a class="amzn" id="unicode5-1"
 title="The Unicode Standard, Version 5.0"
@@ -25,13 +37,6 @@ href="http://www.amazon.com/o/ASIN/0321480910/utf8com-20"><img
 alt="The Unicode Standard, Version 5.0" border="0"
 src="/0321480910.01.MZZZZZZZ.jpg" width="126" height="160" hspace="6"
 vspace="6" align="right"></a>
-
-<h2>What is UTF-8?</h2>
-
-<p>UTF-8 stands for <strong>U</strong>nicode
-<strong>T</strong>ransformation
-<strong>F</strong>ormat-<strong>8</strong>.  It is an octet (8-bit)
-lossless encoding of Unicode characters.</p>
 
 <p>UTF-8 encodes each Unicode character as a variable number of 1 to 4
 octets, where the number of octets depends on the integer value assigned
@@ -58,6 +63,8 @@ from Amazon.com</a>]</dt>
     definition</a> in sections 3.9 and 3.10, pages 77-81.</dd>
 </dl>
 
+<h2>Articles and background reading</h2>
+
 <a
 class="amzn" id="demystified-1"
 title="Unicode Demystified: A Practical Programmer's Guide to the Encoding Standard"
@@ -65,8 +72,6 @@ href="http://www.amazon.com/o/ASIN/0201700522/utf8com-20"><img
 src="/0201700522.01.MZZZZZZZ.jpg" width="128" height="160"
 alt="Unicode Demystified: A Practical Programmer's Guide to the Encoding Standard"
 border="0" hspace="4" vspace="4" align="right"></a>
-
-<h2>Articles and background reading</h2>
 
 <dl>
 <dt><a href="http://www.cl.cam.ac.uk/~mgk25/unicode.html">UTF-8 and
@@ -130,11 +135,11 @@ content:</p>
 
 <hr>
 
-<div>
-<small>
+<footer>
 <!-- hhmts start -->Last modified: Mon Dec  3 11:52:15 PST 2012 <!-- hhmts end -->
-</small>
-</div>
+</footer>
+
+</div> <!-- /container -->
 
 <script src="http://www.google-analytics.com/urchin.js"
 type="text/javascript">
@@ -151,6 +156,5 @@ if(e2[i].id){e2[i].onclick=function(){urchinTracker("/amzn/"+this.id);}}
 }}}}
 // -->
 </script>
-
 </body>
 </html>
