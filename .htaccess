@@ -1,0 +1,15 @@
+<IfModule mod_deflate.c>
+ AddOutputFilterByType DEFLATE text/html text/css text/javascript
+</IfModule>
+
+AddDefaultCharset UTF-8
+AddType image/icon ico
+AddType text/xml xml
+
+Redirect /_vti_bin/owssvr.dll http://www.utf-8.com/
+Redirect /MSOffice/cltreq.asp http://www.utf-8.com/
+
+ExpiresActive On
+ExpiresByType image/gif A63072000
+ExpiresByType image/jpeg A63072000
+ExpiresByType image/icon A63072000
