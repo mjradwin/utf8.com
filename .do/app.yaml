@@ -1,0 +1,22 @@
+domains:
+- domain: utf8.com
+  type: PRIMARY
+  zone: utf8.com
+- domain: www.utf8.com
+  type: ALIAS
+  zone: utf8.com
+- domain: utf-8.com
+  type: ALIAS
+- domain: www.utf-8.com
+  type: ALIAS
+name: utf-8-com-v2
+region: nyc
+static_sites:
+- environment_slug: html
+  github:
+    branch: master
+    deploy_on_push: true
+    repo: mjradwin/utf8.com
+  name: utf-8-com-v2
+  routes:
+  - path: /
