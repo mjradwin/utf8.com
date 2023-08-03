@@ -18,8 +18,21 @@ pre {
  border: solid green;
  padding: 12px;
 }
-.float-end{float:right}
-.m-3{margin:1rem}
+.mt-2{margin-top:0.5rem}
+.small {
+  font-size: 0.875em;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+.text-muted {
+  color: rgba(33, 37, 41, 0.75);
+}
+@media (prefers-color-scheme: dark) {
+  .text-muted {
+    color:rgba(173, 181, 189, 0.75);
+  }
+}
 </style>
 </head>
 <body>
@@ -30,8 +43,7 @@ pre {
 <p><strong>U</strong>nicode <strong>T</strong>ransformation
 <strong>F</strong>ormat <strong>8</strong>-bit is a variable-width
 encoding that can represent every character in the <a
-title="The Unicode Standard, Version 5.0"
-href="https://www.amazon.com/o/ASIN/0321480910/utf8com-20">Unicode</a>
+href="https://home.unicode.org/">Unicode</a>
 character set. It was designed for backward compatibility with ASCII and
 to avoid the complications of endianness and byte order marks in UTF-16
 and UTF-32.
@@ -41,11 +53,16 @@ and UTF-32.
 </header>
 <main>
 
+<aside>
 <a class="amzn" id="unicode5-1"
-title="The Unicode Standard, Version 5.0"
-href="https://www.amazon.com/o/ASIN/0321480910/utf8com-20"><amp-img
-alt="The Unicode Standard, Version 5.0" class="float-end m-3"
-src="0321480910.01.MZZZZZZZ.jpg" width="126" height="160"></amp-img></a>
+title="Unicode Explained: Internationalize Documents, Programs, and Web Sites"
+rel="sponsored" target="_blank"
+href="https://www.amazon.com/o/ASIN/059610121X/utf8com-20"><amp-img
+alt="Unicode Explained: Internationalize Documents, Programs, and Web Sites" class="mt-2"
+src="unicode-explained.jpg" width="137" height="180"></amp-img></a>
+<p class="small"><a target="_blank" rel="sponsored" href="https://www.amazon.com/o/ASIN/059610121X/utf8com-20">Unicode Explained: Internationalize Documents, Programs, and Web Sites</a>
+ &middot; <em class="small text-muted text-nowrap">paid link</em></p>
+</aside>
 
 <p>UTF-8 encodes each Unicode character as a variable number of 1 to 4
 octets, where the number of octets depends on the integer value assigned
@@ -63,6 +80,7 @@ the dominant character set on the Web.</p>
 <li><a href="https://www.unicode.org/standard/standard.html">The
     Unicode Standard 5.0</a>, November 2006. [<a class="amzn"
 id="unicode5-2" title="The Unicode Standard, Version 5.0"
+rel="sponsored" target="_blank"
 href="https://www.amazon.com/o/ASIN/0321480910/ref=nosim/utf8com-20">purchase
 from Amazon.com</a>]
 <ul><li>In particular, see the <a title="2.5 Encoding Forms: UTF-8"
@@ -75,14 +93,6 @@ from Amazon.com</a>]
 </ul>
 
 <h2>Articles and background reading</h2>
-
-<a
-class="amzn" id="demystified-1"
-title="Unicode Demystified: A Practical Programmer's Guide to the Encoding Standard"
-href="https://www.amazon.com/o/ASIN/0201700522/utf8com-20"><amp-img
-src="0201700522.01.MZZZZZZZ.jpg" width="128" height="160"
-alt="Unicode Demystified: A Practical Programmer's Guide to the Encoding Standard"
-class="float-end m-3"></amp-img></a>
 
 <ul>
 <li><a href="https://www.cl.cam.ac.uk/~mgk25/unicode.html">UTF-8 and
